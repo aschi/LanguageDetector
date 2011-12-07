@@ -20,8 +20,6 @@ public class LanguageDetector {
 	 * @param language Language associated with the given words
 	 */
 	public void learn(List<Word> input, String language){
-		System.out.println(input.size() + " words to learn..");
-		
 		for(Word in : input){
 			int i = neuronalNetwork.indexOf(in);
 			if(i == -1){
@@ -84,7 +82,7 @@ public class LanguageDetector {
 			System.out.println(k + ": " + ratio +"(" +languageWordCounter.get(k) +" words)");
 			
 			//Use this text to train the language if most of this text is detectable
-			if(ratio > 0.6 && foundRatio > 0.8){
+			if(ratio > 0.6 && foundRatio > 0.7){
 				learn(input, k);
 			}
 		}
