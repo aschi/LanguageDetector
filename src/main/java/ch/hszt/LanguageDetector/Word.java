@@ -69,6 +69,8 @@ public class Word implements Comparable<Word>{
 			return false;
 		}
 		
+		int charErrCount = 0;
+		
 		char[] thisCharArray = getText().toCharArray();
 		char[] compCharArray = w.getText().toCharArray();
 		
@@ -78,14 +80,25 @@ public class Word implements Comparable<Word>{
 			return false;
 		}
 		
-		if(thisCharArray.length == compCharArray.length){
-			
+		//Switch arrays to have "thisCharArray <= compCharArray"
+		if(thisCharArray.length > compCharArray.length){
+			 char[] tmpArr = thisCharArray;
+			 compCharArray = thisCharArray;
+			 thisCharArray = tmpArr;
 		}
 		
+		//Loop through arrays and count diverse characters
+		for(int i = 0;i < thisCharArray.length;i++){
+			if(thisCharArray[i] != compCharArray[i]){
+				charErrCount++;
+			}
+		}
 		
-		return false;
-		
-		
+		if(charErrCount < (1+(getText().length()/5))){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/**
