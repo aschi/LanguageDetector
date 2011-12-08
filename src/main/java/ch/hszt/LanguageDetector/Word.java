@@ -21,10 +21,11 @@ public class Word implements Comparable<Word>{
 		hitCount++;
 	}
 	
-	public Word(int id, String text){
+	public Word(int id, String text, int hitCount){
 		languages = new TreeSet<Language>();
 		this.text = text;
 		this.id = id;
+		this.hitCount = hitCount;
 	}
 	
 	public int getId() {
@@ -64,12 +65,24 @@ public class Word implements Comparable<Word>{
 	}
 	
 	public boolean isSimilar(Word w){
+		if(w == null){
+			return false;
+		}
+		
 		char[] thisCharArray = getText().toCharArray();
 		char[] compCharArray = w.getText().toCharArray();
 		
+		//Check length
+		//Could be "similar" if the length difference is less then "1+20% of word length" (10 chars => 1+10*0.2 = 3 chars) 
+		if(Math.abs((thisCharArray.length-compCharArray.length)) > (1+(thisCharArray.length/5))){
+			return false;
+		}
 		
-				
+		if(thisCharArray.length == compCharArray.length){
 			
+		}
+		
+		
 		return false;
 		
 		
