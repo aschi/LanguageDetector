@@ -8,6 +8,11 @@ public class Language implements Comparable<Language>{
 		super();
 		this.language = language;
 	}
+	
+	public Language(int id, String language) {
+		this(language);
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

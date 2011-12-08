@@ -15,6 +15,12 @@ public class Word implements Comparable<Word>{
 		this.text = text;
 	}
 	
+	public Word(int id, String text){
+		languages = new TreeSet<Language>();
+		this.text = text;
+		this.id = id;
+	}
+	
 	public String getText(){
 		return text;
 	}
