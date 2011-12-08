@@ -43,6 +43,8 @@ public class LanguageDetector {
 			//search for word
 			if(neuronalNetwork.contains(w)){
 				found++;
+				//increment hitcount of word used for further analysis / learning
+				searchWord(w).registerHit();
 				//read languages of word
 				for(Language l : searchWord(w).getLanguages()){
 					Integer count = null;
@@ -73,12 +75,26 @@ public class LanguageDetector {
 			System.out.println(k + ": " + ratio +"(" +languageWordCounter.get(k) +" words)");
 			
 			//Use this text to train the language if most of this text is detectable
-			if(ratio > 0.6 && foundRatio > 0.7){
+			if(ratio > 0.95 && foundRatio > 0.3){
 				learn(input, k);
 			}
 		}
 		
 		return output;
+	}
+	
+	private void removeIrrelevantWords(){
+		Word last = null;
+		
+		for(Word w : neuronalNetwork){
+			if(w.isSimilar(last)){
+				
+			}
+			last = w;
+		}
+		
+		
+		
 	}
 	
 	private Word searchWord(Word comp){

@@ -7,12 +7,18 @@ import java.util.TreeSet;
 
 public class Word implements Comparable<Word>{
 	private int id;
+	private int hitCount;
 	private Set<Language> languages;
 	private String text;
+	
 	
 	public Word(String text){
 		languages = new TreeSet<Language>();
 		this.text = text;
+	}
+	
+	public void registerHit(){
+		hitCount++;
 	}
 	
 	public Word(int id, String text){
@@ -21,6 +27,14 @@ public class Word implements Comparable<Word>{
 		this.id = id;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getText(){
 		return text;
 	}
@@ -39,6 +53,13 @@ public class Word implements Comparable<Word>{
 		}else{
 			return false;
 		}
+	}
+	
+	public boolean isSimilar(Word w){
+		
+		return false;
+		
+		
 	}
 	
 	/**
