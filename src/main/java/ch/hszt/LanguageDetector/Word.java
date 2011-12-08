@@ -2,13 +2,16 @@ package ch.hszt.LanguageDetector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Word {
-	private List<String> languages;
+public class Word implements Comparable<Word>{
+	private int id;
+	private Set<Language> languages;
 	private String text;
 	
 	public Word(String text){
-		languages = new ArrayList<String>();
+		languages = new TreeSet<Language>();
 		this.text = text;
 	}
 	
@@ -16,11 +19,11 @@ public class Word {
 		return text;
 	}
 	
-	public void addLanguage(String language){
+	public void addLanguage(Language language){
 		languages.add(language);
 	}
 	
-	public List<String> getLanguages(){
+	public Set<Language> getLanguages(){
 		return languages;
 	}
 
@@ -45,5 +48,13 @@ public class Word {
 			}
 		}
 		return output;
+	}
+
+	/**
+	 * Compare using the String
+	 */
+	@Override
+	public int compareTo(Word o) {
+		return getText().compareTo(o.getText());
 	}
 }

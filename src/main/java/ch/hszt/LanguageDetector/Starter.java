@@ -16,8 +16,8 @@ public class Starter
     	LanguageDetector ld = new LanguageDetector();
         try {
         	System.out.println("learn...");
-			ld.learn(tfp.parseFile(new File("learningMaterial/darwin_deutsch.txt")), "Deutsch");
-			ld.learn(tfp.parseFile(new File("learningMaterial/robinson_english.txt")), "Englisch");
+			ld.learn(tfp.parseFile(new File("learningMaterial/darwin_deutsch.txt")), new Language("Deutsch"));
+			ld.learn(tfp.parseFile(new File("learningMaterial/robinson_english.txt")), new Language("Englisch"));
 			System.out.println("detect...");
 			ld.detectLanguage(tfp.parseFile(new File("learningMaterial/english_text.txt")));
 			ld.detectLanguage(tfp.parseFile(new File("learningMaterial/english_text.txt")));
