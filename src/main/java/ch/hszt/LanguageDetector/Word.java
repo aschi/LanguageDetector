@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 public class Word implements Comparable<Word>{
 	private int id;
-	private int hitCount;
+	private int hitCount = 0;
 	private Set<Language> languages;
 	private String text;
 	
@@ -35,6 +35,14 @@ public class Word implements Comparable<Word>{
 		this.id = id;
 	}
 
+	public int getHitCount() {
+		return hitCount;
+	}
+
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
+	}
+
 	public String getText(){
 		return text;
 	}
@@ -56,7 +64,12 @@ public class Word implements Comparable<Word>{
 	}
 	
 	public boolean isSimilar(Word w){
+		char[] thisCharArray = getText().toCharArray();
+		char[] compCharArray = w.getText().toCharArray();
 		
+		
+				
+			
 		return false;
 		
 		
