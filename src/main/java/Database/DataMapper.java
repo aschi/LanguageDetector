@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import ch.hszt.LanguageDetector.Language;
 import ch.hszt.LanguageDetector.Word;
 
@@ -208,12 +206,39 @@ public final class DataMapper {
 			insertLanguage(l.getLanguage());
 		}
 		
+		Map<String, Integer> langs = getReverseLanguages();
+		
 		for (Word word : words) {
 			insertWord(word);
 			for (Language l: word.getLanguages()) {
-				insertWordLanguage(word.getId(), getLanguageID(l));
+				insertWordLanguage(word.getId(), langs.get(l.getLanguage()));
 			}
 		}
+	}
+	
+	private Map<String, Integer> getReverseLanguages() {
+		Map<String, Integer> returnMap = new HashMap<String, Integer>();
+
+		String sql;
+		sql = "SELECT * FROM 'language';";
+		System.out.println(sql);
+		ResultSet rs;
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				returnMap
+						.put(rs.getString("language"), rs.getInt("languageID"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return returnMap;
+
 	}
 
 }

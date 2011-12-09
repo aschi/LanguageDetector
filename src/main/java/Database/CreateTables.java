@@ -71,8 +71,8 @@ public class CreateTables {
 			Statement stmt = conn.createStatement();
 			String sql = "CREATE TABLE 'word' "
 					+ " (wordID integer PRIMARY KEY autoincrement," 
-					+ " word varchar(100)),"
-					+ " hitCount integer;";
+					+ " word varchar(100),"
+					+ " hitCount integer);";
 			stmt.execute(sql);
 
 			stmt = conn.createStatement();

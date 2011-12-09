@@ -10,6 +10,7 @@ public class Word implements Comparable<Word>{
 	private int hitCount = 0;
 	private Set<Language> languages;
 	private String text;
+	private double emphasis;
 	
 	
 	public Word(String text){
@@ -110,4 +111,14 @@ public class Word implements Comparable<Word>{
 	public int compareTo(Word o) {
 		return getText().compareTo(o.getText());
 	}
+
+	public double getEmphasis() {
+		return emphasis;
+	}
+
+	public void setEmphasis(double emphasis) {
+		this.emphasis = emphasis;
+	}
+	
+	
 }
