@@ -78,7 +78,7 @@ public class LanguageDetector {
 		
 		//Generate output
 		for(Language k : languageWordCounter.keySet()){
-			double ratio = (double)((double)languageWordCounter.get(k)/(double)found);
+			double ratio = (double)((double)languageWordCounter.get(k)/(double)input.size());
 			output.put(k, new Double(ratio));
 									
 			//Learn language considering emphasis
