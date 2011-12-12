@@ -23,37 +23,10 @@ public class MainGui {
 	LanguageDetector ld;
 	Language currentLanguage;
 
-	public MainGui() {
-		ld = new LanguageDetector();
+	public MainGui(LanguageDetector ld) {
+		this.ld = ld;
 		
 		createFrame();
-		
-		TextFileParser tfp = new TextFileParser();
-		try {
-			ld.learn(tfp.parseFile(new File(
-					"learningMaterial/deutsch_learning.txt")), new Language(
-					"Deutsch"));
-			ld.learn(tfp.parseFile(new File(
-					"learningMaterial/english_learning.txt")), new Language(
-					"Englisch"));
-					
-			
-			ld.detectLanguage(tfp.parseFile(new File(
-					"learningMaterial/english_text.txt")));
-			for(int n = 0;n < 10;n++){
-				ld.detectLanguage(tfp.parseFile(new File(
-						"learningMaterial/english_text.txt")));
-			}
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		ld.getNeuronalNetwork().printNetwork();
 		updateGui();
 	}
 

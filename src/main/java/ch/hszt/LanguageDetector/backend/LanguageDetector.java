@@ -80,15 +80,9 @@ public class LanguageDetector {
 		for(Language k : languageWordCounter.keySet()){
 			double ratio = (double)((double)languageWordCounter.get(k)/(double)found);
 			output.put(k, new Double(ratio));
-			
-						
-			//Print output
-			System.out.println(k + ": " + ratio);
-			
+									
 			//Learn language considering emphasis
 			learn(input, k, ratio);
-			
-			neuronalNetwork.printNetwork();
 		}
 		
 		return output;
