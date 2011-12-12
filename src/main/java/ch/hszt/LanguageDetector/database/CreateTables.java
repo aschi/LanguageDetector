@@ -1,4 +1,4 @@
-package Database;
+package ch.hszt.LanguageDetector.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

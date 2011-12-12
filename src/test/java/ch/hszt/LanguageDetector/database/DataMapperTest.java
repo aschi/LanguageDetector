@@ -1,4 +1,4 @@
-package ch.hszt.Database;
+package ch.hszt.LanguageDetector.database;
 
 import java.sql.SQLException;
 import java.util.Set;
@@ -9,9 +9,9 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import Database.DataMapper;
-import ch.hszt.LanguageDetector.Language;
-import ch.hszt.LanguageDetector.Word;
+import ch.hszt.LanguageDetector.backend.Language;
+import ch.hszt.LanguageDetector.backend.Word;
+import ch.hszt.LanguageDetector.database.DataMapper;
 
 public class DataMapperTest {
 

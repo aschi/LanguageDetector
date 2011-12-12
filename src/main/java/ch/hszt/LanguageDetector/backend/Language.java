@@ -1,4 +1,4 @@
-package ch.hszt.LanguageDetector;
+package ch.hszt.LanguageDetector.backend;
 
 public class Language implements Comparable<Language>{
 	private int id;
@@ -33,7 +33,11 @@ public class Language implements Comparable<Language>{
 			return false;
 		}
 	}
-
+	
+	public int hashCode(){
+		return getLanguage().hashCode();
+	}
+	
 	public String toString() {
 		return language;
 	}

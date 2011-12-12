@@ -1,4 +1,4 @@
-package Database;
+package ch.hszt.LanguageDetector.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import ch.hszt.LanguageDetector.Language;
-import ch.hszt.LanguageDetector.Word;
+import ch.hszt.LanguageDetector.backend.Language;
+import ch.hszt.LanguageDetector.backend.Word;
 
 public final class DataMapper {
 

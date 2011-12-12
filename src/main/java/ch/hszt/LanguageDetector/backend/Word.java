@@ -1,4 +1,4 @@
-package ch.hszt.LanguageDetector;
+package ch.hszt.LanguageDetector.backend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,11 @@ import java.util.TreeSet;
 
 public class Word implements Comparable<Word>{
 	private int id;
-	private int hitCount = 0;
 	private Set<Language> languages;
 	private String text;
+	
+	//TODO: Remove hitCount / emphasis
+	private int hitCount = 0;
 	private double emphasis;
 	
 	
@@ -120,5 +122,12 @@ public class Word implements Comparable<Word>{
 		this.emphasis = emphasis;
 	}
 	
+	public int hashCode(){
+		return getText().hashCode();
+	}
+	
+	public String toString(){
+		return text;
+	}
 	
 }

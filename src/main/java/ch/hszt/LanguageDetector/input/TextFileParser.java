@@ -1,4 +1,4 @@
-package ch.hszt.LanguageDetector;
+package ch.hszt.LanguageDetector.input;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+
+import ch.hszt.LanguageDetector.backend.Word;
 
 public class TextFileParser {
 
