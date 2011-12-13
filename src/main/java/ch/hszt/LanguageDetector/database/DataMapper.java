@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import ch.hszt.LanguageDetector.backend.Language;
 import ch.hszt.LanguageDetector.backend.Neuron;
@@ -42,7 +42,6 @@ public final class DataMapper {
 				neuron.getEmphasis() + ", " +
 				neuron.getHitCount() + ", " +
 				neuron.getEmphasisFactor() + ");";
-		System.out.println(sql);
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate(sql);
 
@@ -64,7 +63,7 @@ public final class DataMapper {
 	 */
 	public void delete() throws SQLException {
 		String sql;
-		sql = "DELETE * FROM 'neuron';";
+		sql = "DELETE FROM 'neuron';";
 		System.out.println(sql);
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate(sql);
@@ -80,7 +79,7 @@ public final class DataMapper {
 		
 		NeuronalNetwork<Word, Language> neuronalNetwork = null;
 
-		Set<Neuron<Word, Language>> neurons = new TreeSet<Neuron<Word, Language>>();
+		Set<Neuron<Word, Language>> neurons = new HashSet<Neuron<Word, Language>>();
 
 		String sql;
 		sql = "SELECT * FROM 'neuron';";

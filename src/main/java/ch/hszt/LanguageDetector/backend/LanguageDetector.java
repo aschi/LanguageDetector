@@ -19,6 +19,11 @@ public class LanguageDetector {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public LanguageDetector(NeuronalNetwork<Word, Language> neuronalNetwork) {
+		super();
+		this.neuronalNetwork = neuronalNetwork;
+	}
+	
 	/**
 	 * Learn a language. 
 	 * @param input List of words that should be trained
