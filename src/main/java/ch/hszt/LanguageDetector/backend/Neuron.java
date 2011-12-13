@@ -13,6 +13,25 @@ public class Neuron <S, T>{
 	//used to recalculate emphasis
 	private double emphasisFactor;
 	
+	
+	/**
+	 * Constructor for Prisi :-)
+	 * @param source
+	 * @param target
+	 * @param emphasis
+	 * @param hitCount
+	 * @param emphasisFactor
+	 */
+	public Neuron(S source, T target, double emphasis, double hitCount,
+			double emphasisFactor) {
+		super();
+		this.source = source;
+		this.target = target;
+		this.emphasis = emphasis;
+		this.hitCount = hitCount;
+		this.emphasisFactor = emphasisFactor;
+	}
+
 	public Neuron(S source, T target, double emphasis) {
 		super();
 		this.source = source;
@@ -42,10 +61,7 @@ public class Neuron <S, T>{
 		this.target = target;
 	}
 	
-	public double getHitCount(){
-		return hitCount;
-	}
-	
+
 	public void addToNetwork(double emphasis){
 		//recalculate hitCount + emphasisFactor
 		hitCount+=emphasis;
@@ -63,9 +79,18 @@ public class Neuron <S, T>{
 		emphasis = (hitCount / hitSum) * emphasisFactor;
 	}
 	
+	public double getHitCount(){
+		return hitCount;
+	}
+	
 	public double getEmphasis() {
 		return emphasis;
 	}
+	
+	public double getEmphasisFactor() {
+		return emphasisFactor;
+	}
+
 	public void setEmphasis(double emphasis) {
 		this.emphasis = emphasis;
 	}

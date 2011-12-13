@@ -143,6 +143,14 @@ public class NeuronalNetwork<S, T> {
 		}
 		return rv;
 	}
+	
+	/**
+	 * Geter for neuronSet
+	 * @return
+	 */
+	public Set<Neuron<S, T>> getNeuronSet(){
+		return neuronSet;
+	}
 
 	/**
 	 * Get reference to a neuron in our network.
