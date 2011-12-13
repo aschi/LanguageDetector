@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import ch.hszt.LanguageDetector.backend.Language;
+import ch.hszt.LanguageDetector.backend.Neuron;
+import ch.hszt.LanguageDetector.backend.NeuronalNetwork;
 import ch.hszt.LanguageDetector.backend.Word;
 
 public final class DataMapper {
@@ -30,20 +30,24 @@ public final class DataMapper {
 	 * 
 	 * @param word
 	 *            Word to insert
-	 * @return int wordID
+	 * @return neuronID
 	 * @throws SQLException
 	 */
-	public int insertWord(Word word) throws SQLException {
-
+	public int insertNeuron(Neuron<Word, Language> neuron) throws SQLException {
 		String sql;
 		ResultSet rs = null;
-		sql = "INSERT INTO 'word' VALUES (null, \'" + word.getText() + "\', " + word.getHitCount() + ");";
+		sql = "INSERT INTO 'neuron' VALUES (null, \'" + 
+				neuron.getSource().getText() + "\', " + "\'" + 
+				neuron.getTarget().getLanguage() + "\', " +
+				neuron.getEmphasis() + ", " +
+				neuron.getHitCount() + ", " +
+				neuron.getEmphasisFactor() + ");";
 		System.out.println(sql);
 		Statement stmt = conn.createStatement();
 		stmt.executeUpdate(sql);
 
 		PreparedStatement pstmt = conn
-				.prepareStatement("select max(wordID) max from 'word';");
+				.prepareStatement("select max(neuronID) max from 'neuron';");
 		rs = pstmt.executeQuery();
 		if (rs.next()) {
 			;
@@ -54,191 +58,61 @@ public final class DataMapper {
 	}
 
 	/**
-	 * Inserts a new language into table language
-	 * 
-	 * @param language
-	 *            Language to insert
-	 * @return int languageID
-	 * @throws SQLException
-	 */
-	public int insertLanguage(String language) throws SQLException {
-
-		String sql;
-		ResultSet rs = null;
-		sql = "INSERT INTO 'language' VALUES (null, \'" + language + "\');";
-		System.out.println(sql);
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(sql);
-
-		PreparedStatement pstmt = conn
-				.prepareStatement("select max(languageID) max from 'language';");
-		rs = pstmt.executeQuery();
-		if (rs.next()) {
-			;
-			return rs.getInt("max");
-		} else {
-			return 0;
-		}
-	}
-
-	/**
-	 * Inserts a new word-language-relationshop into table wordLanguage
-	 * 
-	 * @param wordID
-	 *            the ID of the word to connect to a language
-	 * @param languageID
-	 *            the ID of the language to connect to a word
-	 * @throws SQLException
-	 */
-	public void insertWordLanguage(int wordID, int languageID)
-			throws SQLException {
-
-		String sql;
-		sql = "INSERT INTO 'wordLanguage' VALUES (null, " + wordID + ", "
-				+ languageID + ");";
-		System.out.println(sql);
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(sql);
-	}
-
-	/**
-	 * Deletes all entities in tables word, language and wordLanguage
+	 * Deletes all entities in table  neuron
 	 * 
 	 * @throws SQLException
 	 */
 	public void delete() throws SQLException {
 		String sql;
-		sql = "DELETE * FROM 'word';";
+		sql = "DELETE * FROM 'neuron';";
 		System.out.println(sql);
 		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(sql);
-
-		sql = "DELETE * FROM 'language';";
-		System.out.println(sql);
-		stmt = conn.createStatement();
-		stmt.executeUpdate(sql);
-
-		sql = "DELETE * FROM 'wordLanguage';";
-		System.out.println(sql);
-		stmt = conn.createStatement();
 		stmt.executeUpdate(sql);
 	}
 
 	/**
-	 * Returns all Words with all languages in a Set
+	 * Returns all neurons as a neuralNetwork
 	 * 
-	 * @return a Set with all words
+	 * @return neuronalNetwork
 	 * @throws SQLException
 	 */
-	public Set<Word> getWordSet() throws SQLException {
+	public NeuronalNetwork<Word, Language> getNeuronalNetwork() throws SQLException {
+		
+		NeuronalNetwork<Word, Language> neuronalNetwork = null;
 
-		Map<Integer, String> languages = getLanguages();
+		Set<Neuron<Word, Language>> neurons = new TreeSet<Neuron<Word, Language>>();
 
 		String sql;
-		sql = "SELECT * FROM 'word';";
+		sql = "SELECT * FROM 'neuron';";
 		System.out.println(sql);
 
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		Set<Word> wordSet = new TreeSet<Word>();
 
 		while (rs.next()) {
+			Neuron<Word, Language> neuron = new Neuron<Word, Language>(new Word(rs.getString("word")), new Language(rs.getString("Language")), rs.getDouble("emphasis"),
+					rs.getDouble("hitCount"), rs.getDouble("emphasisFactor"));
+			neurons.add(neuron);
 
-			Word word = new Word(rs.getInt("WordID"), rs.getString("word"), rs.getInt("hitCount"));
-			addLanguagesToWord(languages, word);
-
-			wordSet.add(word);
 		}
-		return wordSet;
+		neuronalNetwork = new NeuronalNetwork<Word, Language>(neurons);
+		return neuronalNetwork;
 	}
 
-	private void addLanguagesToWord(Map<Integer, String> map, Word word) {
-		String sql;
-		sql = "SELECT * FROM 'wordLanguage' WHERE fkWordID = \'" + word.getId() + "\';";
-		System.out.println(sql);
-
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Language l = new Language(rs.getInt("fkLanguageID"), map.get(rs.getInt("fkLanguageID")));
-				word.addLanguage(l);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private Map<Integer, String> getLanguages() {
-		Map<Integer, String> returnMap = new HashMap<Integer, String>();
-
-		String sql;
-		sql = "SELECT * FROM 'language';";
-		System.out.println(sql);
-		ResultSet rs;
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				returnMap
-						.put(rs.getInt("languageID"), rs.getString("language"));
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return returnMap;
-
-	}
 	
 	/**
-	 * Saves all words, languages and relationships between them in the tables
-	 * @param words all Words
+	 * Saves all neurons
+	 * @param neuronalNetwork neuronalNetwork with all neurons to be saved
 	 * @throws SQLException 
 	 */
-	public void saveAllWords(Set<Word> words, Set<Language> languages) throws SQLException {
+	public void saveNeuronalNetwork(NeuronalNetwork<Word, Language> neuronalNetwork) throws SQLException {
 		
-		for (Language l: languages) {
-			insertLanguage(l.getLanguage());
-		}
+		//delete old neuronalNetwork from Table neurons
+		delete();
 		
-		Map<String, Integer> langs = getReverseLanguages();
-		
-		for (Word word : words) {
-			insertWord(word);
-			for (Language l: word.getLanguages()) {
-				insertWordLanguage(word.getId(), langs.get(l.getLanguage()));
-			}
+		for (Neuron<Word, Language> neuron : neuronalNetwork.getNeuronSet()) {
+			insertNeuron(neuron);
 		}
-	}
-	
-	private Map<String, Integer> getReverseLanguages() {
-		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-
-		String sql;
-		sql = "SELECT * FROM 'language';";
-		System.out.println(sql);
-		ResultSet rs;
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				returnMap
-						.put(rs.getString("language"), rs.getInt("languageID"));
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return returnMap;
-
 	}
 
 }

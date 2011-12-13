@@ -2,61 +2,17 @@ package ch.hszt.LanguageDetector.backend;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Word implements Comparable<Word>{
-	private int id;
-	private Set<Language> languages;
 	private String text;
-	
-	//TODO: Remove hitCount / emphasis
-	private int hitCount = 0;
-	private double emphasis;
 	
 	
 	public Word(String text){
-		languages = new TreeSet<Language>();
 		this.text = text;
-	}
-	
-	public void registerHit(){
-		hitCount++;
-	}
-	
-	public Word(int id, String text, int hitCount){
-		languages = new TreeSet<Language>();
-		this.text = text;
-		this.id = id;
-		this.hitCount = hitCount;
-	}
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getHitCount() {
-		return hitCount;
-	}
-
-	public void setHitCount(int hitCount) {
-		this.hitCount = hitCount;
 	}
 
 	public String getText(){
 		return text;
-	}
-	
-	public void addLanguage(Language language){
-		languages.add(language);
-	}
-	
-	public Set<Language> getLanguages(){
-		return languages;
 	}
 
 	public boolean equals(Object o){
@@ -125,14 +81,6 @@ public class Word implements Comparable<Word>{
 	@Override
 	public int compareTo(Word o) {
 		return getText().compareTo(o.getText());
-	}
-
-	public double getEmphasis() {
-		return emphasis;
-	}
-
-	public void setEmphasis(double emphasis) {
-		this.emphasis = emphasis;
 	}
 	
 	public int hashCode(){

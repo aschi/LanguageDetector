@@ -36,27 +36,10 @@ public class CreateTables {
 	}
 
 	public void delete(Connection conn) throws SQLException {
-		try {
-			Statement stmt = conn.createStatement();
-			String sql = "DROP TABLE 'word'";
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "DROP TABLE 'language'";
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
-			Statement stmt = conn.createStatement();
-			String sql = "DROP TABLE 'languageWord'";
+			String sql = "DROP TABLE 'neuron'";
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,23 +52,13 @@ public class CreateTables {
 
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "CREATE TABLE 'word' "
-					+ " (wordID integer PRIMARY KEY autoincrement," 
-					+ " word varchar(100),"
-					+ " hitCount integer);";
-			stmt.execute(sql);
-
-			stmt = conn.createStatement();
-			sql = "CREATE TABLE 'language' "
-					+ " (languageID integer PRIMARY KEY autoincrement, "
-					+ " language varchar(50))" + ";";
-			stmt.execute(sql);
-			
-			stmt = conn.createStatement();
-			sql = "CREATE TABLE 'languageWord' "
-					+ " (lwID integer PRIMARY KEY autoincrement, "
-					+ " fkWordID integer," 
-					+ " fkLanguageID integer);";
+			String sql = "CREATE TABLE 'neuron' "
+					+ " (neuronID integer PRIMARY KEY autoincrement, "
+					+ " word varchar(100)," 
+					+ " language varchar(50),"
+					+ " emphasis double," 
+					+ " hitCount double," 
+					+ " emphasisFactor double);";
 			stmt.execute(sql);
 		} finally {
 			if (conn != null)
