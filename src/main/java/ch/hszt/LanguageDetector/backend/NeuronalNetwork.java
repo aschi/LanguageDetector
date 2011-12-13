@@ -10,6 +10,10 @@ public class NeuronalNetwork<S, T> {
 		neuronSet = new HashSet<Neuron<S, T>>();
 	}
 
+	public NeuronalNetwork(Set<Neuron<S, T>> neuronSet) {
+		this.neuronSet = neuronSet;
+	}
+
 	/**
 	 * Add neuron
 	 * 

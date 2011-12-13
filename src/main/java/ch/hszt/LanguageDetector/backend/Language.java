@@ -1,25 +1,11 @@
 package ch.hszt.LanguageDetector.backend;
 
 public class Language implements Comparable<Language>{
-	private int id;
 	private String language;
 
 	public Language(String language) {
 		super();
 		this.language = language;
-	}
-	
-	public Language(int id, String language) {
-		this(language);
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getLanguage() {
