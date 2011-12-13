@@ -65,7 +65,7 @@ public class Neuron <S, T>{
 	public void addToNetwork(double emphasis){
 		//recalculate hitCount + emphasisFactor
 		hitCount+=emphasis;
-		emphasisFactor = ((emphasisFactor*(hitCount-emphasis)+emphasis)/hitCount);
+		emphasisFactor = emphasisFactor == 0 ? emphasis : ((emphasisFactor*(hitCount-emphasis)+emphasis)/hitCount);
 	}
 	
 	public void recalculateEmphasis(Set<Neuron<S, T>>subset){
