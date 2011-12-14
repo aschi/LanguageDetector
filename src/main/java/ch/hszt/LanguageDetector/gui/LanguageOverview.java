@@ -1,8 +1,10 @@
 package ch.hszt.LanguageDetector.gui;
 
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -12,7 +14,7 @@ import ch.hszt.LanguageDetector.backend.Language;
 import ch.hszt.LanguageDetector.backend.NeuronalNetwork;
 import ch.hszt.LanguageDetector.backend.Word;
 
-public class LanguageOverview {
+public class LanguageOverview extends JPanel{
 	private JTree tree;
 	private MainGui gui;
 	private DefaultMutableTreeNode top;
@@ -26,7 +28,13 @@ public class LanguageOverview {
 		top = new DefaultMutableTreeNode("Languages");
 		tree = new JTree(top);
 		
+		//add to panel
+		add(tree);
+		setPreferredSize(new Dimension(130, 300));
+		
 		updateLanguageOverview();
+		
+		tree.scrollPathToVisible(new TreePath(top.getLastLeaf().getPath()));
 	}
 	
 	public void updateLanguageOverview(){
@@ -58,15 +66,5 @@ public class LanguageOverview {
 				}
 			}
 		});
-	}
-	
-	
-	/**
-	 * Returns the generated JTree
-	 * 
-	 * @return the generated JTree
-	 */
-	public JTree getTree() {
-		return tree;
 	}
 }

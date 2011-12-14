@@ -1,13 +1,13 @@
 package ch.hszt.LanguageDetector.backend;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
-public class NeuronalNetwork<S, T> {
+public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 	private Set<Neuron<S, T>> neuronSet;
 
 	public NeuronalNetwork() {
-		neuronSet = new HashSet<Neuron<S, T>>();
+		neuronSet = new TreeSet<Neuron<S, T>>();
 	}
 
 	public NeuronalNetwork(Set<Neuron<S, T>> neuronSet) {
@@ -60,7 +60,7 @@ public class NeuronalNetwork<S, T> {
 	 * @return
 	 */
 	public Set<S> getSourceList(T target) {
-		Set<S> rv = new HashSet<S>();
+		Set<S> rv = new TreeSet<S>();
 
 		for (Neuron<S, T> n : neuronSet) {
 			if (n.getTarget().equals(target)) {
@@ -77,7 +77,7 @@ public class NeuronalNetwork<S, T> {
 	 * @return
 	 */
 	public Set<T> getTargetList(S source) {
-		Set<T> rv = new HashSet<T>();
+		Set<T> rv = new TreeSet<T>();
 
 		for (Neuron<S, T> n : neuronSet) {
 			if (n.getSource().equals(source)) {
@@ -94,7 +94,7 @@ public class NeuronalNetwork<S, T> {
 	 * @return
 	 */
 	public Set<T> getTargetList() {
-		Set<T> rv = new HashSet<T>();
+		Set<T> rv = new TreeSet<T>();
 
 		for (Neuron<S, T> n : neuronSet) {
 			rv.add(n.getTarget());
@@ -108,7 +108,7 @@ public class NeuronalNetwork<S, T> {
 	 * @return
 	 */
 	public Set<S> getSourceList() {
-		Set<S> rv = new HashSet<S>();
+		Set<S> rv = new TreeSet<S>();
 
 		for (Neuron<S, T> n : neuronSet) {
 			rv.add(n.getSource());
@@ -123,7 +123,7 @@ public class NeuronalNetwork<S, T> {
 	 * @return
 	 */
 	public Set<Neuron<S, T>> getNeuronsFromSource(S source) {
-		Set<Neuron<S, T>> rv = new HashSet<Neuron<S, T>>();
+		Set<Neuron<S, T>> rv = new TreeSet<Neuron<S, T>>();
 		for (Neuron<S, T> n : neuronSet) {
 			if (n.getSource().equals(source)) {
 				rv.add(n);
@@ -139,7 +139,7 @@ public class NeuronalNetwork<S, T> {
 	 * @return
 	 */
 	public Set<Neuron<S, T>> getNeuronsFromTarget(T target) {
-		Set<Neuron<S, T>> rv = new HashSet<Neuron<S, T>>();
+		Set<Neuron<S, T>> rv = new TreeSet<Neuron<S, T>>();
 		for (Neuron<S, T> n : neuronSet) {
 			if (n.getTarget().equals(target)) {
 				rv.add(n);

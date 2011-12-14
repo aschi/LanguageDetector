@@ -66,6 +66,7 @@ public class Starter
 		}
     	new MainGui(ld);
     	
+    	/*
     	Runtime.getRuntime().addShutdownHook(new Thread() {
     	    public void run() {
     	    	try {
@@ -77,5 +78,6 @@ public class Starter
     	        System.out.println("LanguageDetector is shutting down!");
     	    }
     	});
+    	*/
     }
 }

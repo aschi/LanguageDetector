@@ -1,10 +1,13 @@
 package ch.hszt.LanguageDetector.gui;
 
 import java.awt.Dimension;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,13 +30,26 @@ public class InputForm extends JPanel{
 	}
 	
 	private void createForm(){
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		//Textarea
 		area = new JTextArea("");
-		//area.setSize(500, 50);
-		area.setPreferredSize(new Dimension(800, 200));
+		area.setPreferredSize(new Dimension(0, 200));
+		area.setLineWrap(true);
+		
 		this.add(new JScrollPane(area));
 		
+		//Add Button
 		JButton parseButton = new JButton("Parse");
-		this.add(parseButton);	
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+		buttonPane.add(Box.createHorizontalGlue());
+		buttonPane.add(parseButton);
+		
+		this.add(buttonPane);	
+		
+		
+		
 		parseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -60,7 +76,6 @@ public class InputForm extends JPanel{
 				
 				
 				JOptionPane.showMessageDialog(gui.getFrame(), sb.toString());
-				
 				
 				gui.updateGui();
 			}

@@ -3,6 +3,7 @@ package ch.hszt.LanguageDetector.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import ch.hszt.LanguageDetector.backend.Language;
@@ -29,7 +30,7 @@ public class WordOverview extends JPanel{
 		table.getColumnModel().getColumn(2).setPreferredWidth(30);
 		
 		this.setLayout(new BorderLayout());
-		this.add(table, BorderLayout.CENTER);
+		this.add(new JScrollPane(table), BorderLayout.CENTER);
 	}
 	
 	/**

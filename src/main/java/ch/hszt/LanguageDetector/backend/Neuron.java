@@ -2,7 +2,7 @@ package ch.hszt.LanguageDetector.backend;
 
 import java.util.Set;
 
-public class Neuron <S, T>{
+public class Neuron <S extends Comparable<S>, T extends Comparable<T>> implements Comparable<Neuron<S, T>>{
 	private S source;
 	private T target;
 	private double emphasis;
@@ -113,6 +113,17 @@ public class Neuron <S, T>{
 	
 	public String toString(){
 		return source + "->" + target;
+	}
+
+	@Override
+	public int compareTo(Neuron<S, T> o) {
+		//sort by 1. target 2. source
+		int sort = this.getTarget().compareTo(o.getTarget());
+		if(sort == 0){
+			return this.getSource().compareTo(o.getSource());
+		}else{
+			return sort;
+		}
 	}
 	
 }

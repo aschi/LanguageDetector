@@ -34,16 +34,16 @@ public class MainGui {
 		frame = new JFrame("Language Detector");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Fullscreen
-
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Fullscreen
+		frame.setSize(800, 600);
+		
 		// Set Navigation
 		lo = new LanguageOverview(ld.getNeuronalNetwork(), this);
-		frame.getContentPane().add(new JScrollPane(lo.getTree()),
-				BorderLayout.WEST);
+		frame.getContentPane().add(new JScrollPane(lo),	BorderLayout.WEST);
 
 		// Set word overview
 		wo = new WordOverview(ld.getNeuronalNetwork());
-		frame.getContentPane().add(new JScrollPane(wo), BorderLayout.CENTER);
+		frame.getContentPane().add(wo, BorderLayout.CENTER);
 		
 		//Set input form
 		frame.getContentPane().add(new InputForm(ld, this), BorderLayout.SOUTH);
