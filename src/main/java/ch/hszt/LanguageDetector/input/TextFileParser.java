@@ -27,7 +27,7 @@ public class TextFileParser {
 		}
 		
 		//Remove punctuations / generate word list
-		return Word.generateWordListFromArray(contents.toString().toLowerCase().replaceAll("\\p{Punct}", " ").replaceAll("  ", " ").split(" "));
+		return Word.generateWordListFromArray(contents.toString().toLowerCase().replaceAll("\\p{Punct}", " ").replaceAll("  ", " ").replaceAll("«","").replaceAll("»", "").split(" "));
 	}
 
 }

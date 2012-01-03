@@ -6,5 +6,6 @@ target/
 nbproject
 .DS_Store
 .classpath
+*.db
 .project
 .settings/

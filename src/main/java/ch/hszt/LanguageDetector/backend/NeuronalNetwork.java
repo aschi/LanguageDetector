@@ -1,5 +1,6 @@
 package ch.hszt.LanguageDetector.backend;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -33,19 +34,19 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 	 */
 	public void addNeuron(S source, T target, double emphasis) {
 		// Calculate default emphasis
-//		int numberOfSourceConnections = getTargetList(source).size();
-//		emphasis = (numberOfSourceConnections == 0 ? 1
-//				: 1 / numberOfSourceConnections) * emphasis;
+		// int numberOfSourceConnections = getTargetList(source).size();
+		// emphasis = (numberOfSourceConnections == 0 ? 1
+		// : 1 / numberOfSourceConnections) * emphasis;
 
 		// Generate new neuron
 		Neuron<S, T> n = new Neuron<S, T>(source, target, emphasis);
 
 		// add neuron to the set if its a new one
 		neuronSet.add(n);
-		
+
 		searchNeuron(n).addToNetwork(emphasis);
-		
-		//Recalculate emphasis on all related neurons
+
+		// Recalculate emphasis on all related neurons
 		Set<Neuron<S, T>> subset = getNeuronsFromSource(source);
 		for (Neuron<S, T> o : subset) {
 			o.recalculateEmphasis(subset);
@@ -72,7 +73,7 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 
 	/**
 	 * Get a set of targets related to a given source
-	 *
+	 * 
 	 * @param source
 	 * @return
 	 */
@@ -87,10 +88,9 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 		return rv;
 	}
 
-	
 	/**
 	 * Get a set of all targets
-	 *
+	 * 
 	 * @return
 	 */
 	public Set<T> getTargetList() {
@@ -101,10 +101,10 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 		}
 		return rv;
 	}
-	
+
 	/**
 	 * Get a set of all sources
-	 *
+	 * 
 	 * @return
 	 */
 	public Set<S> getSourceList() {
@@ -115,7 +115,7 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 		}
 		return rv;
 	}
-	
+
 	/**
 	 * Get a set of neurons related to a given source
 	 * 
@@ -147,12 +147,13 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 		}
 		return rv;
 	}
-	
+
 	/**
 	 * Geter for neuronSet
+	 * 
 	 * @return
 	 */
-	public Set<Neuron<S, T>> getNeuronSet(){
+	public Set<Neuron<S, T>> getNeuronSet() {
 		return neuronSet;
 	}
 
@@ -178,6 +179,29 @@ public class NeuronalNetwork<S extends Comparable<S>, T extends Comparable<T>> {
 			System.out.println(n + ": " + n.getEmphasis());
 		}
 		System.out.println("----------------------------------");
+	}
+
+	/**
+	 * Remove irrelevan (emphasis < threshold)
+	 * 
+	 * @param threshold
+	 */
+	public void removeIrrelevantNeurons(double threshold) {
+		ArrayList<Neuron<S, T>> removeList = new ArrayList<Neuron<S, T>>();
+		for (Neuron<S, T> n : neuronSet) {
+			if (n.getEmphasis() < threshold) {
+				removeList.add(n);
+
+			}
+		}
+
+		for (Neuron<S, T> n : removeList) {
+			neuronSet.remove(n);
+		}
+		if (removeList.size() > 0) {
+			System.out.println(removeList.size()
+					+ " neutrons removed (emphasis < " + threshold + ")");
+		}
 	}
 
 }

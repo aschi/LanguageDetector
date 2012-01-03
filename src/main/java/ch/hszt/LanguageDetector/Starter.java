@@ -36,7 +36,7 @@ public class Starter
 			e1.printStackTrace();
 		}
         TextFileParser tfp = new TextFileParser();
-		try {
+		try {;
 			neuronalNetwork = dm.getNeuronalNetwork();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -66,18 +66,18 @@ public class Starter
 		}
     	new MainGui(ld);
     	
-    	/*
-    	Runtime.getRuntime().addShutdownHook(new Thread() {
-    	    public void run() {
-    	    	try {
-					dm.saveNeuronalNetwork(ld.getNeuronalNetwork());
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-    	        System.out.println("LanguageDetector is shutting down!");
-    	    }
-    	});
-    	*/
+    	
+//    	Runtime.getRuntime().addShutdownHook(new Thread() {
+//    	    public void run() {
+//    	    	try {
+//					dm.saveNeuronalNetwork(ld.getNeuronalNetwork());
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//    	        System.out.println("LanguageDetector is shutting down!");
+//    	    }
+//    	});
+    	
     }
 }
